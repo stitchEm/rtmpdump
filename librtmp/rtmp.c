@@ -915,7 +915,12 @@ RTMP_Connect0(RTMP *r, struct sockaddr * service)
   if (r->m_sb.sb_socket != -1)
     {
       /* set socket in non blocking mode to manage connection timeout */
+#ifdef _MSC_VER
+      u_long iMode = 1;
+      ioctlsocket(r->m_sb.sb_socket, FIONBIO, &iMode);
+#else
       fcntl(r->m_sb.sb_socket, F_SETFL, O_NONBLOCK);
+#endif
       if (connect(r->m_sb.sb_socket, service, sizeof(struct sockaddr)) != 0)
 	{
           /* connection did not succeeded right away */
@@ -947,7 +952,12 @@ RTMP_Connect0(RTMP *r, struct sockaddr * service)
           }
     }
       /* set socket back to blocking mode */
+#ifdef _MSC_VER
+      iMode = 0;
+      ioctlsocket(r->m_sb.sb_socket, FIONBIO, &iMode);
+#else
       fcntl(r->m_sb.sb_socket, F_SETFL, 0);
+#endif
 
       if (r->Link.socksport)
 	{

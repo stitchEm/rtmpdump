@@ -1,3 +1,8 @@
+librtmp/vc140/.vs
+librtmp/vc140/x64
+*.user
+*.filters
+*.sdf
 *.[oa]
 *.exe
 *.so
