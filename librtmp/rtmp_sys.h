@@ -31,6 +31,9 @@
 #define strcasecmp _stricmp
 #define strncasecmp _strnicmp
 #define strdup _strdup
+#ifndef snprintf
+#define snprintf _snprintf
+#endif
 #endif
 
 #define GetSockError()	WSAGetLastError()
