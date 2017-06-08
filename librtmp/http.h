@@ -42,6 +42,6 @@ struct HTTP_ctx {
 
 typedef size_t (HTTP_read_callback)(void *ptr, size_t size, size_t nmemb, void *stream);
 
-HTTPResult HTTP_get(struct HTTP_ctx *http, const char *url, HTTP_read_callback *cb);
+LIBRTMP_EXPORT HTTPResult HTTP_get(struct HTTP_ctx *http, const char *url, HTTP_read_callback *cb);
 
 #endif

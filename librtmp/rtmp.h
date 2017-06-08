@@ -65,11 +65,11 @@ extern "C"
 
 #define	RTMP_CHANNELS	65600
 
-  extern const char RTMPProtocolStringsLower[][7];
-  extern const AVal RTMP_DefaultFlashVer;
-  extern int RTMP_ctrlC;
+  LIBRTMP_EXPORT extern const char RTMPProtocolStringsLower[][7];
+  LIBRTMP_EXPORT extern const AVal RTMP_DefaultFlashVer;
+  LIBRTMP_EXPORT extern int RTMP_ctrlC;
 
-  uint32_t RTMP_GetTime(void);
+  LIBRTMP_EXPORT uint32_t RTMP_GetTime(void);
 
 /*      RTMP_PACKET_TYPE_...                0x00 */
 #define RTMP_PACKET_TYPE_CHUNK_SIZE         0x01
@@ -134,10 +134,10 @@ extern "C"
     void *sb_ssl;
   } RTMPSockBuf;
 
-  void RTMPPacket_Reset(RTMPPacket *p);
-  void RTMPPacket_Dump(RTMPPacket *p);
-  int RTMPPacket_Alloc(RTMPPacket *p, uint32_t nSize);
-  void RTMPPacket_Free(RTMPPacket *p);
+  LIBRTMP_EXPORT void RTMPPacket_Reset(RTMPPacket *p);
+  LIBRTMP_EXPORT void RTMPPacket_Dump(RTMPPacket *p);
+  LIBRTMP_EXPORT int RTMPPacket_Alloc(RTMPPacket *p, uint32_t nSize);
+  LIBRTMP_EXPORT void RTMPPacket_Free(RTMPPacket *p);
 
 #define RTMPPacket_IsReady(a)	((a)->m_nBytesRead == (a)->m_nBodySize)
 
@@ -282,16 +282,16 @@ extern "C"
     RTMP_LNK Link;
   } RTMP;
 
-  int RTMP_ParseURL(const char *url, int *protocol, AVal *host,
+  LIBRTMP_EXPORT int RTMP_ParseURL(const char *url, int *protocol, AVal *host,
 		     unsigned int *port, AVal *playpath, AVal *app);
 
-  void RTMP_ParsePlaypath(AVal *in, AVal *out);
-  void RTMP_SetBufferMS(RTMP *r, int size);
-  void RTMP_UpdateBufferMS(RTMP *r);
+  LIBRTMP_EXPORT void RTMP_ParsePlaypath(AVal *in, AVal *out);
+  LIBRTMP_EXPORT void RTMP_SetBufferMS(RTMP *r, int size);
+  LIBRTMP_EXPORT void RTMP_UpdateBufferMS(RTMP *r);
 
-  int RTMP_SetOpt(RTMP *r, const AVal *opt, AVal *arg);
-  int RTMP_SetupURL(RTMP *r, char *url);
-  void RTMP_SetupStream(RTMP *r, int protocol,
+  LIBRTMP_EXPORT int RTMP_SetOpt(RTMP *r, const AVal *opt, AVal *arg);
+  LIBRTMP_EXPORT int RTMP_SetupURL(RTMP *r, char *url);
+  LIBRTMP_EXPORT void RTMP_SetupStream(RTMP *r, int protocol,
 			AVal *hostname,
 			unsigned int port,
 			AVal *sockshost,
@@ -309,66 +309,66 @@ extern "C"
 			int dStart,
 			int dStop, int bLiveStream, long int timeout);
 
-  int RTMP_Connect(RTMP *r, RTMPPacket *cp);
+  LIBRTMP_EXPORT int RTMP_Connect(RTMP *r, RTMPPacket *cp);
   struct sockaddr;
-  int RTMP_Connect0(RTMP *r, struct sockaddr *svc);
-  int RTMP_Connect1(RTMP *r, RTMPPacket *cp);
-  int RTMP_Serve(RTMP *r);
-  int RTMP_TLS_Accept(RTMP *r, void *ctx);
+  LIBRTMP_EXPORT int RTMP_Connect0(RTMP *r, struct sockaddr *svc);
+  LIBRTMP_EXPORT int RTMP_Connect1(RTMP *r, RTMPPacket *cp);
+  LIBRTMP_EXPORT int RTMP_Serve(RTMP *r);
+  LIBRTMP_EXPORT int RTMP_TLS_Accept(RTMP *r, void *ctx);
 
-  int RTMP_ReadPacket(RTMP *r, RTMPPacket *packet);
-  int RTMP_SendPacket(RTMP *r, RTMPPacket *packet, int queue);
-  int RTMP_SendChunk(RTMP *r, RTMPChunk *chunk);
-  int RTMP_IsConnected(RTMP *r);
-  int RTMP_Socket(RTMP *r);
-  int RTMP_IsTimedout(RTMP *r);
-  double RTMP_GetDuration(RTMP *r);
-  int RTMP_ToggleStream(RTMP *r);
+  LIBRTMP_EXPORT int RTMP_ReadPacket(RTMP *r, RTMPPacket *packet);
+  LIBRTMP_EXPORT int RTMP_SendPacket(RTMP *r, RTMPPacket *packet, int queue);
+  LIBRTMP_EXPORT int RTMP_SendChunk(RTMP *r, RTMPChunk *chunk);
+  LIBRTMP_EXPORT int RTMP_IsConnected(RTMP *r);
+  LIBRTMP_EXPORT int RTMP_Socket(RTMP *r);
+  LIBRTMP_EXPORT int RTMP_IsTimedout(RTMP *r);
+  LIBRTMP_EXPORT double RTMP_GetDuration(RTMP *r);
+  LIBRTMP_EXPORT int RTMP_ToggleStream(RTMP *r);
 
-  int RTMP_ConnectStream(RTMP *r, int seekTime);
-  int RTMP_ReconnectStream(RTMP *r, int seekTime);
-  void RTMP_DeleteStream(RTMP *r);
-  int RTMP_GetNextMediaPacket(RTMP *r, RTMPPacket *packet);
-  int RTMP_ClientPacket(RTMP *r, RTMPPacket *packet);
+  LIBRTMP_EXPORT int RTMP_ConnectStream(RTMP *r, int seekTime);
+  LIBRTMP_EXPORT int RTMP_ReconnectStream(RTMP *r, int seekTime);
+  LIBRTMP_EXPORT void RTMP_DeleteStream(RTMP *r);
+  LIBRTMP_EXPORT int RTMP_GetNextMediaPacket(RTMP *r, RTMPPacket *packet);
+  LIBRTMP_EXPORT int RTMP_ClientPacket(RTMP *r, RTMPPacket *packet);
 
-  void RTMP_Init(RTMP *r);
-  void RTMP_Close(RTMP *r);
-  RTMP *RTMP_Alloc(void);
-  void RTMP_Free(RTMP *r);
-  void RTMP_EnableWrite(RTMP *r);
+  LIBRTMP_EXPORT void RTMP_Init(RTMP *r);
+  LIBRTMP_EXPORT void RTMP_Close(RTMP *r);
+  LIBRTMP_EXPORT RTMP *RTMP_Alloc(void);
+  LIBRTMP_EXPORT void RTMP_Free(RTMP *r);
+  LIBRTMP_EXPORT void RTMP_EnableWrite(RTMP *r);
 
-  void *RTMP_TLS_AllocServerContext(const char* cert, const char* key);
-  void RTMP_TLS_FreeServerContext(void *ctx);
+  LIBRTMP_EXPORT void *RTMP_TLS_AllocServerContext(const char* cert, const char* key);
+  LIBRTMP_EXPORT void RTMP_TLS_FreeServerContext(void *ctx);
 
-  int RTMP_LibVersion(void);
-  void RTMP_UserInterrupt(void);	/* user typed Ctrl-C */
+  LIBRTMP_EXPORT int RTMP_LibVersion(void);
+  LIBRTMP_EXPORT void RTMP_UserInterrupt(void);	/* user typed Ctrl-C */
 
-  int RTMP_SendCtrl(RTMP *r, short nType, unsigned int nObject,
+  LIBRTMP_EXPORT int RTMP_SendCtrl(RTMP *r, short nType, unsigned int nObject,
 		     unsigned int nTime);
 
   /* caller probably doesn't know current timestamp, should
    * just use RTMP_Pause instead
    */
-  int RTMP_SendPause(RTMP *r, int DoPause, int dTime);
-  int RTMP_Pause(RTMP *r, int DoPause);
+  LIBRTMP_EXPORT int RTMP_SendPause(RTMP *r, int DoPause, int dTime);
+  LIBRTMP_EXPORT int RTMP_Pause(RTMP *r, int DoPause);
 
-  int RTMP_FindFirstMatchingProperty(AMFObject *obj, const AVal *name,
+  LIBRTMP_EXPORT int RTMP_FindFirstMatchingProperty(AMFObject *obj, const AVal *name,
 				      AMFObjectProperty * p);
 
-  int RTMPSockBuf_Fill(RTMPSockBuf *sb);
-  int RTMPSockBuf_Send(RTMPSockBuf *sb, const char *buf, int len);
-  int RTMPSockBuf_Close(RTMPSockBuf *sb);
+  LIBRTMP_EXPORT int RTMPSockBuf_Fill(RTMPSockBuf *sb);
+  LIBRTMP_EXPORT int RTMPSockBuf_Send(RTMPSockBuf *sb, const char *buf, int len);
+  LIBRTMP_EXPORT int RTMPSockBuf_Close(RTMPSockBuf *sb);
 
-  int RTMP_SendCreateStream(RTMP *r);
-  int RTMP_SendSeek(RTMP *r, int dTime);
-  int RTMP_SendServerBW(RTMP *r);
-  int RTMP_SendClientBW(RTMP *r);
-  void RTMP_DropRequest(RTMP *r, int i, int freeit);
-  int RTMP_Read(RTMP *r, char *buf, int size);
-  int RTMP_Write(RTMP *r, const char *buf, int size);
+  LIBRTMP_EXPORT int RTMP_SendCreateStream(RTMP *r);
+  LIBRTMP_EXPORT int RTMP_SendSeek(RTMP *r, int dTime);
+  LIBRTMP_EXPORT int RTMP_SendServerBW(RTMP *r);
+  LIBRTMP_EXPORT int RTMP_SendClientBW(RTMP *r);
+  LIBRTMP_EXPORT void RTMP_DropRequest(RTMP *r, int i, int freeit);
+  LIBRTMP_EXPORT int RTMP_Read(RTMP *r, char *buf, int size);
+  LIBRTMP_EXPORT int RTMP_Write(RTMP *r, const char *buf, int size);
 
 /* hashswf.c */
-  int RTMP_HashSWF(const char *url, unsigned int *size, unsigned char *hash,
+  LIBRTMP_EXPORT int RTMP_HashSWF(const char *url, unsigned int *size, unsigned char *hash,
 		   int age);
 
 #ifdef __cplusplus
