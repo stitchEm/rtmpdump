@@ -84,6 +84,7 @@
     <ClInclude Include="..\bytes.h" />
     <ClInclude Include="..\dh.h" />
     <ClInclude Include="..\dhgroups.h" />
+    <ClInclude Include="..\export.h" />
     <ClInclude Include="..\handshake.h" />
     <ClInclude Include="..\http.h" />
     <ClInclude Include="..\log.h" />
