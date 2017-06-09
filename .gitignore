@@ -15,3 +15,6 @@ rtmpsuck
 *.suo
 librtmp/vc120/x64/
 librtmp/vc120/librtmp.opensdf
+librtmp/vc120/bin/
+librtmp/vc120/include/
+librtmp/vc120/lib/
