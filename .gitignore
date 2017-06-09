@@ -12,3 +12,6 @@ rtmpdump
 rtmpgw
 rtmpsrv
 rtmpsuck
+*.suo
+librtmp/vc120/x64/
+librtmp/vc120/librtmp.opensdf
