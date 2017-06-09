@@ -1424,10 +1424,12 @@ RTMP_ClientPacket(RTMP *r, RTMPPacket *packet)
   return bHasMediaPacket;
 }
 
-/*#ifdef _DEBUG
+#ifndef _MSC_VER
+#ifdef _DEBUG 
 extern FILE *netstackdump;
 extern FILE *netstackdump_read;
-#endif*/
+#endif
+#endif
 
 static int
 ReadN(RTMP *r, char *buffer, int n)
@@ -1512,9 +1514,11 @@ ReadN(RTMP *r, char *buffer, int n)
 	        return FALSE;
 	}
       /*RTMP_Log(RTMP_LOGDEBUG, "%s: %d bytes\n", __FUNCTION__, nBytes); */
-/*#ifdef _DEBUG
+#ifndef _MSC_VER
+#ifdef _DEBUG
       fwrite(ptr, 1, nBytes, netstackdump_read);
-#endif*/
+#endif
+#endif
 
       if (nBytes == 0)
 	{
@@ -4341,9 +4345,11 @@ RTMPSockBuf_Send(RTMPSockBuf *sb, const char *buf, int len)
 {
   int rc;
 
-/*#ifdef _DEBUG
+#ifndef _MSC_VER
+#ifdef _DEBUG
   fwrite(buf, 1, len, netstackdump);
-#endif*/
+#endif
+#endif
 
 #if defined(CRYPTO) && !defined(NO_SSL)
   if (sb->sb_ssl)
