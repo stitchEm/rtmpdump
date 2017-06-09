@@ -25,17 +25,8 @@
  *  http://www.gnu.org/copyleft/lgpl.html
  */
 
-
-#ifdef _MSC_VER	/* MSVC */
-#ifdef BUILD_LIBRTMP
-#define LIBRTMP_EXPORT __declspec(dllexport)
-#else
-#define LIBRTMP_EXPORT __declspec(dllimport)
-#endif
-#else 
-#define LIBRTMP_EXPORT __attribute__((visibility("default")))
-#endif
 #include <stdint.h>
+#include "export.h"
 
 #ifndef TRUE
 #define TRUE	1
