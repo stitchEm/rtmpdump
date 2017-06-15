@@ -67,6 +67,13 @@ static const char *my_dhm_G = "4";
 TLS_CTX RTMP_TLS_ctx;
 #endif
 
+#ifndef WSAEWOULDBLOCK
+#define WSAEWOULDBLOCK EWOULDBLOCK
+#endif
+#ifndef WSAEINPROGRESS
+#define WSAEINPROGRESS EINPROGRESS
+#endif
+
 #define RTMP_SIG_SIZE 1536
 #define RTMP_LARGE_HEADER_SIZE 12
 
@@ -925,7 +932,7 @@ RTMP_Connect0(RTMP *r, struct sockaddr * service)
 	{
           /* connection did not succeeded right away */
 	  int err = GetSockError();
-          if (err != EINPROGRESS) {
+          if (err != EINPROGRESS && err != EWOULDBLOCK && err != WSAEINPROGRESS && err != WSAEWOULDBLOCK) {
             RTMP_Log(RTMP_LOGERROR, "%s, failed to connect socket straight away. %d (%s)",
                 __FUNCTION__, err, strerror(err));
             RTMP_Close(r);
