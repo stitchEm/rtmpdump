@@ -42,7 +42,7 @@
 #define EWOULDBLOCK	WSAETIMEDOUT	/* we don't use nonblocking, but we do use timeouts */
 #define sleep(n)	Sleep(n*1000)
 #define msleep(n)	Sleep(n)
-#define SET_SOCKOPT_TIMEO(tv,s)	int tv = s*1000
+#define SET_SOCKOPT_TIMEO(tv,s)	struct timeval tv = {s,0}
 #else /* !_WIN32 */
 #include <sys/types.h>
 #include <sys/socket.h>
