@@ -42,7 +42,8 @@
 #define EWOULDBLOCK	WSAETIMEDOUT	/* we don't use nonblocking, but we do use timeouts */
 #define sleep(n)	Sleep(n*1000)
 #define msleep(n)	Sleep(n)
-#define SET_SOCKOPT_TIMEO(tv,s)	struct timeval tv = {s,0}
+#define SET_SOCKOPT_TIMEO(tv,s)	int tv = s*1000
+#define SET_SOCKCONNECT_TIMEO(tv,s)	struct timeval tv = {s,0}
 #else /* !_WIN32 */
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -58,6 +59,7 @@
 #define closesocket(s)	close(s)
 #define msleep(n)	usleep(n*1000)
 #define SET_SOCKOPT_TIMEO(tv,s)	struct timeval tv = {s,0}
+#define SET_SOCKCONNECT_TIMEO(tv,s)	SET_SOCKOPT_TIMEO(tv, s)
 #endif
 
 #include "rtmp.h"
