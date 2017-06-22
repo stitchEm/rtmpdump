@@ -943,7 +943,7 @@ RTMP_Connect0(RTMP *r, struct sockaddr * service)
           fd_set fdset;
           FD_ZERO(&fdset);
           FD_SET(r->m_sb.sb_socket, &fdset);
-          SET_SOCKOPT_TIMEO(selectTv, r->Link.timeout);
+          SET_SOCKCONNECT_TIMEO(selectTv, r->Link.timeout);
           int selectReturn = select(r->m_sb.sb_socket + 1, NULL, &fdset, NULL, &selectTv);
           if (selectReturn == -1) {
               RTMP_Log(RTMP_LOGERROR, "%s, failed to connect socket during select. %d (%s)",
